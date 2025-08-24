@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback Murid</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    select, input {
+      padding: 5px;
+      margin-top: 5px;
+    }
+    #feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f2f2f2;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Program Feedback Murid</h2>
+
+  <!-- Pilih Nama Siswa -->
+  <label for="nama">Pilih Nama Siswa:</label>
+  <select id="nama">
+    <option value="">-- pilih siswa --</option>
+    <option value="Inara">Inara</option>
+    <option value="Kenar">Kenar</option>
+    <option value="Davi">Davi</option>
+  </select>
+
+  <!-- Pilih Tanggal -->
+  <label for="tanggal">Pilih Tanggal Kelas:</label>
+  <input type="date" id="tanggal">
+
+  <button onclick="tampilkanFeedback()">Lihat Feedback</button>
+
+  <div id="feedback"></div>
+
+  <script>
+    // Database feedback sederhana (bisa dikembangkan ambil dari Google Sheet/API)
+    const feedbackData = {
+      "Inara": {
+        "2025-08-20": "Inara sudah berhasil menyelesaikan modul 2 Roblox dengan menambahkan item baru.",
+        "2025-08-23": "Inara belajar membuat desain balapan dengan scripting tombol mobil."
+      },
+      "Kenar": {
+        "2025-08-20": "Kenar berhasil membuat NPC yang bisa bergerak ke beberapa titik.",
+        "2025-08-23": "Kenar membuat quest baru dalam Roblox."
+      },
+      "Davi": {
+        "2025-08-20": "Davi membuat Arcade Simulator dengan pesawat yang bisa digerakkan.",
+        "2025-08-23": "Davi memperbaiki tata letak game dan scripting."
+      }
+    };
+
+    function tampilkanFeedback() {
+      const nama = document.getElementById("nama").value;
+      const tanggal = document.getElementById("tanggal").value;
+      const feedbackDiv = document.getElementById("feedback");
+
+      if (nama && tanggal) {
+        const feedback = feedbackData[nama]?.[tanggal];
+        if (feedback) {
+          feedbackDiv.innerHTML = `📌 Feedback untuk <b>${nama}</b> (${tanggal}):<br>${feedback}`;
+        } else {
+          feedbackDiv.innerHTML = `❌ Tidak ada feedback untuk ${nama} pada tanggal ${tanggal}.`;
+        }
+      } else {
+        feedbackDiv.innerHTML = "⚠️ Silakan pilih nama siswa dan tanggal kelas.";
+      }
+    }
+  </script>
+</body>
+</html>
